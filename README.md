@@ -32,3 +32,8 @@
 1. Clone το repo:
    ```bash
    git clone https://github.com/stelaras36/ArkanoidGame.git
+   ---
+
+### 🔑 Keywords
+`arkanoid` `android-game` `retro-game` `java-game` `power-ups` `breakout` `brick-breaker` `game-development` `android-studio` `mobile-game` `2d-game` `open-source` `fun-project` `stelaras36`
+
