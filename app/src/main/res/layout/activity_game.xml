@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Εδώ θα προστεθεί το GameView από το GameActivity -->
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/button_left"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="#66FFFFFF"
+            android:text="&lt;" />
+
+        <View android:layout_width="250dp" android:layout_height="1dp"/>
+
+        <Button
+            android:id="@+id/button_right"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="#66FFFFFF"
+            android:text="&gt;" />
+
+        <ImageButton
+            android:id="@+id/button_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_menu_preferences"
+            android:background="@android:color/transparent"
+            android:layout_gravity="top|end"
+            android:contentDescription="Settings"
+            android:padding="8dp"/>
+
+
+    </LinearLayout>
+</FrameLayout>

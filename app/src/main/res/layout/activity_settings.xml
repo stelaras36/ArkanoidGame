@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="32dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paddle Control:"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"/>
+
+        <RadioGroup
+            android:id="@+id/controlModeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioSwipe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Swipe"
+                android:textColor="#FFFFFF"/>
+
+            <RadioButton
+                android:id="@+id/radioButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buttons"
+                android:textColor="#FFFFFF"/>
+        </RadioGroup>
+
+        <View android:layout_height="24dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Music:"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"/>
+
+        <Switch
+            android:id="@+id/switchMusic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Music On/Off"
+            android:textColor="#FFFFFF"/>
+
+        <View android:layout_height="24dp" android:layout_width="match_parent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vibration:"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"/>
+
+        <Switch
+            android:id="@+id/switchVibration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vibration On/Off"
+            android:textColor="#FFFFFF"/>
+
+        <View android:layout_height="48dp" android:layout_width="match_parent"/>
+
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save and Back"/>
+
+    </LinearLayout>
+</ScrollView>
