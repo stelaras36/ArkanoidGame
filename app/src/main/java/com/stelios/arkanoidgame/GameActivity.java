@@ -57,6 +57,7 @@ public class GameActivity extends AppCompatActivity {
         );
 
         gameView = new GameView(this);
+        gameView.startGame();
         gameView.setVibrationEnabled(vibrationOn);
         container.addView(gameView, 0);
 
@@ -78,21 +79,28 @@ public class GameActivity extends AppCompatActivity {
                 return true;
             });
         }
-           }
+        gameView.startGame();
+    }
     public void togglePause() {
         gameView.togglePause();
     }
     @Override
     protected void onPause() {
         super.onPause();
-        gameView.pause();
+        if (gameView != null) {
+            gameView.pause();       // αν θέλεις να κάνει pause το game
+            gameView.stopThread();  // σταματάει το thread για να μην συνεχίζει στο background
+        }
     }
-
     @Override
     protected void onResume() {
         super.onResume();
-        gameView.resume();
+        if (gameView != null) {
+            gameView.setIsPlaying(true);
+            gameView.resumeThread(); // ξεκινάει το thread πάλι
+        }
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -100,6 +108,10 @@ public class GameActivity extends AppCompatActivity {
         if (requestCode == 1) {
             gameView.togglePause(); // Ξαναεμφανίζει το pause menu
         }
+    }
+    @Override
+    public void onBackPressed() {
+        // Do nothing to ignore the back button
     }
 
 }

@@ -19,6 +19,8 @@ import java.util.Random;
 import android.os.Vibrator;
 import android.os.VibrationEffect; // για Android 8.0+
 import android.os.Build;           // για έλεγχο έκδοσης Android
+import android.os.Handler;
+import android.os.Looper;
 import android.graphics.drawable.Drawable;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.content.ContextCompat;
@@ -35,6 +37,8 @@ public class GameView extends SurfaceView implements Runnable {
     private Thread gameThread;
     private SurfaceHolder holder;
     private boolean isPlaying;
+    private boolean isRunning = false;
+
     private Paint paint;
     private boolean levelCompleted = false;
 
@@ -110,9 +114,15 @@ public class GameView extends SurfaceView implements Runnable {
 
         bounceSoundId = soundPool.load(getContext(), R.raw.bounce, 1);
         vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-
+            }
+    public void startGame() {
+        isPlaying = true;
+        isRunning = true;
+        gameThread = new Thread(this);
+        gameThread.start();
 
     }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -133,7 +143,8 @@ public class GameView extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        isRunning = true;
+        while (isRunning) {
             if (isPlaying) {
                 update();
             }
@@ -148,6 +159,34 @@ public class GameView extends SurfaceView implements Runnable {
         }
 
     }
+    public void stopThread() {
+        isRunning = false;
+        Thread threadCopy = gameThread;
+        gameThread = null;
+        if (threadCopy != null) {
+            try {
+                threadCopy.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void setIsPlaying(boolean playing) {
+        this.isPlaying = playing;
+    }
+
+    public void resumeThread() {
+        if (gameThread == null || !gameThread.isAlive()) {
+            isRunning = true;
+            gameThread = new Thread(this);
+            gameThread.start();
+        }
+    }
+
+
+
+
 
     private void update() {
         if (blocks == null) return;
@@ -320,7 +359,7 @@ public class GameView extends SurfaceView implements Runnable {
         ballSpeedX = 10;
         ballSpeedY = -10;
         paddleX = getWidth() / 2f - paddleWidth / 2f;
-        paddleY = getHeight() - 150;
+        paddleY = getHeight() - 180;
     }
 
     public void movePaddle(int direction) {
@@ -487,6 +526,11 @@ public class GameView extends SurfaceView implements Runnable {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
             float touchX = event.getX();
             float touchY = event.getY();
+            // Αν ο χρήστης πατήσει πολύ χαμηλά στην οθόνη, αγνοούμε το άγγιγμα
+            if (touchY > getHeight() - 80) {
+                return true;
+            }
+
 
             if (pauseButtonRect != null && pauseButtonRect.contains((int) touchX, (int) touchY)) {
                 togglePause();
@@ -558,6 +602,8 @@ public class GameView extends SurfaceView implements Runnable {
                 blocks[row][col].hitsLeft = hits;
             }
         }
-        isLoadingLevel = false;
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            isLoadingLevel = false;
+        }, 1000); // καθυστέρηση 1 δευτερόλεπτο
     }
 }
